@@ -1,0 +1,3 @@
+# Carousel images live here, one folder per project slug:
+#   public/img/<slug>/01.jpg, 02.jpg ...
+# Managed by: npm run project images <slug> <file...>

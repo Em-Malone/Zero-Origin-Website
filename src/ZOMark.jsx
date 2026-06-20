@@ -2,10 +2,12 @@
 // variant 'a' — original mark: leaf/pod, rounded TL/BR corners, sharp TR/BL, slash.
 // variant 'b' — supplied SVG (ZO-Logo-A-White), interlocking Z/Ø path.
 
+import { useId } from 'react';
+
 // Supplied logo path (1920×1080 artboard). Bounds ≈ x 808–1155, y 404–684.
 const ZO_B_PATH = "M889.08,544.45c0-51.27,41.56-92.83,92.83-92.83l57.95.3h0l-231.33,231.89,174.17-1.38c76.91,0,139.25-62.15,139.25-138.81v-92l-47.21,47.25v45.58c0,51.27-41.56,92.83-92.83,92.83h-59.8l232.44-233.51-171.85.72v.31c-76.91,0-139.25,62.15-139.25,138.81l-1.97,93.66,47.6-48.36.1-48.79";
 
-function ZOMark({ size = 64, gap = 7, color = 'currentColor', variant = 'a' }) {
+export function ZOMark({ size = 64, gap = 7, color = 'currentColor', variant = 'a' }) {
   if (variant === 'b') {
     return (
       <svg width={size} height={size} viewBox="808 403 346 280"
@@ -16,7 +18,7 @@ function ZOMark({ size = 64, gap = 7, color = 'currentColor', variant = 'a' }) {
     );
   }
 
-  const id = React.useId().replace(/[:]/g, '');
+  const id = useId().replace(/[:]/g, '');
   const topClip = `zo-top-${id}`;
   const botClip = `zo-bot-${id}`;
 
@@ -69,5 +71,3 @@ function ZOMark({ size = 64, gap = 7, color = 'currentColor', variant = 'a' }) {
     </svg>
   );
 }
-
-window.ZOMark = ZOMark;

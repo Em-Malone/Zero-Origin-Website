@@ -1,8 +1,11 @@
 // Projects page — grid layout.
 
-function ProjectsPage({ openProject }) {
+import React from 'react';
+import { MoodyPlaceholder } from './MoodyPlaceholder.jsx';
+import projects from '../content/projects.json';
+
+export function ProjectsPage({ openProject }) {
   const [filter, setFilter] = React.useState('All');
-  const projects = window.PROJECTS;
   const disciplines = ['All', ...Array.from(new Set(projects.map(p => p.discipline)))];
   const visible = filter === 'All' ? projects : projects.filter(p => p.discipline === filter);
 
@@ -35,7 +38,12 @@ function ProjectsGrid({ projects, openProject }) {
       {projects.map((p) => (
         <button key={p.slug} className="zo-grid-card" onClick={() => openProject(p.slug)}>
           <div className="zo-grid-img">
-            <MoodyPlaceholder seed={p.title.length + p.year} palette={p.palette} aspect="4/3" />
+            {p.images && p.images.length ? (
+              <img src={p.images[0]} alt={p.title} className="zo-grid-photo"
+                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <MoodyPlaceholder seed={p.title.length + p.year} palette={p.palette} aspect="4/3" />
+            )}
           </div>
           <div className="zo-grid-meta" title={`${p.discipline} · ${p.venue} · ${p.year}`}>
             <span>{p.discipline}</span>
@@ -49,5 +57,3 @@ function ProjectsGrid({ projects, openProject }) {
     </div>
   );
 }
-
-window.ProjectsPage = ProjectsPage;

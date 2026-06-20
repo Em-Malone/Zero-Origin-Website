@@ -1,6 +1,8 @@
 // Contact page — simple form plus email address.
 
-function ContactPage() {
+import React from 'react';
+
+export function ContactPage() {
   const [sent, setSent] = React.useState(false);
   const onSubmit = (e) => {
     e.preventDefault();
@@ -51,5 +53,3 @@ function ContactPage() {
     </main>);
 
 }
-
-window.ContactPage = ContactPage;
