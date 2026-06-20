@@ -1,0 +1,6 @@
+# Static-server / runtime sidecars
+.image-slots.state.json
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
