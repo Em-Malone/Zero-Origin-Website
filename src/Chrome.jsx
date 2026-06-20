@@ -1,6 +1,10 @@
 // Shared UI — nav, compact footer, project detail modal.
 
-function Nav({ route, goto, logo }) {
+import React from 'react';
+import { ZOMark } from './ZOMark.jsx';
+import { MoodyPlaceholder } from './MoodyPlaceholder.jsx';
+
+export function Nav({ route, goto, logo }) {
   const links = [
     ['projects', 'Projects'],
     ['products', 'Products'],
@@ -28,7 +32,7 @@ function Nav({ route, goto, logo }) {
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="zo-footer">
       <div className="zo-footer-row">
@@ -137,7 +141,7 @@ function ProjectGallery({ project }) {
   );
 }
 
-function ProjectDetail({ project, onClose }) {
+export function ProjectDetail({ project, onClose }) {
   React.useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
@@ -185,7 +189,3 @@ function ProjectDetail({ project, onClose }) {
     </div>
   );
 }
-
-window.Nav = Nav;
-window.Footer = Footer;
-window.ProjectDetail = ProjectDetail;

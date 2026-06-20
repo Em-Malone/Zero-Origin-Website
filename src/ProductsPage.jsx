@@ -1,8 +1,9 @@
 // Products page — directory of our software. Each card supports a screenshot,
 // a status, optional price, and an outbound link (free download or paid site).
 
-function ProductsPage() {
-  const products = window.PRODUCTS;
+import products from '../content/products.json';
+
+export function ProductsPage() {
   const isExternal = (href) => /^https?:/i.test(href || '');
   return (
     <main className="zo-page">
@@ -14,15 +15,10 @@ function ProductsPage() {
       <div className="zo-products">
         {products.map((p, i) =>
         <article key={p.name} className="zo-product">
-            {p.shotId &&
+            {p.image &&
           <div className="zo-product-shot">
-                <image-slot
-              id={p.shotId}
-              shape="rounded"
-              radius="2"
-              placeholder="Drop a screenshot"
-              style={{ width: '100%', height: '100%' }}>
-            </image-slot>
+                <img src={p.image} alt={`${p.name} screenshot`}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
           }
             <div className="zo-product-head">
@@ -55,5 +51,3 @@ function ProductsPage() {
     </main>);
 
 }
-
-window.ProductsPage = ProductsPage;

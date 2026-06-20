@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "file-kitty",
+    "type": "paid",
+    "status": "Available now",
+    "name": "File Kitty",
+    "subtitle": "A content management and tracking tool for people with busy brains.",
+    "description": "Manage, track and communicate content delivery and ingestion, from studio to screen. Weekly, monthly and annual licenses available.",
+    "href": "https://cuelist.example.com",
+    "cta": "Visit File Kitty",
+    "image": ""
+  },
+  {
+    "slug": "ltcue",
+    "type": "free",
+    "status": "Free download",
+    "name": "LTCue",
+    "subtitle": "Check your sync against reference audio or other videos.",
+    "description": "Compare your video with embedded audio against reference audio, or against other videos to establish timecode offset - either absolute or relative.",
+    "href": "#",
+    "cta": "Download",
+    "image": ""
+  }
+]

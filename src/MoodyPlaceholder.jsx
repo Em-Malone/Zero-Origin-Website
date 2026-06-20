@@ -11,7 +11,7 @@ function seeded(seed) {
   };
 }
 
-function MoodyPlaceholder({ seed = 1, label = '', aspect = '4/3', palette = 'cool', style = {} }) {
+export function MoodyPlaceholder({ seed = 1, label = '', aspect = '4/3', palette = 'cool', style = {} }) {
   const rand = seeded(seed);
   // Three palettes — cool (blue/teal), warm (amber/magenta), mono (neutral gray).
   const palettes = {
@@ -159,5 +159,3 @@ function MoodyPlaceholder({ seed = 1, label = '', aspect = '4/3', palette = 'coo
     </div>
   );
 }
-
-window.MoodyPlaceholder = MoodyPlaceholder;

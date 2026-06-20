@@ -1,6 +1,8 @@
 // Landing page — centered hero.
 
-function HomePage({ goto, logo }) {
+import { ZOMark } from './ZOMark.jsx';
+
+export function HomePage({ goto, logo }) {
   return (
     <main className="zo-home">
       <HomeCentered goto={goto} logo={logo} />
@@ -46,5 +48,3 @@ function HomeMarquee() {
     </section>);
 
 }
-
-window.HomePage = HomePage;
