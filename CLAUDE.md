@@ -108,6 +108,26 @@ silently — start with `scripts/util.test.mjs`, which covers the pure CLI helpe
 - Keep content (the JSON) separate from presentation (the components). Components
   render whatever the JSON provides; they should not hard-code project data.
 
+## External services (off-repo dependencies)
+
+The site is static, but it leans on a few external services. None of these live in
+the repo — change them in their own dashboards, and keep this list accurate.
+
+- **Vercel** — hosting, builds, and deploys. Env vars (e.g. `VITE_WEB3FORMS_KEY`)
+  are set in **Project → Settings → Environment Variables**, not in the repo.
+- **Web3Forms** — powers the contact form (`src/ContactPage.jsx`); there is no
+  backend. The form POSTs to `api.web3forms.com` using `VITE_WEB3FORMS_KEY` (a
+  public-by-design access key kept in `.env.local` / Vercel, documented in
+  `.env.example`). The recipient address is configured in the Web3Forms dashboard,
+  not in code. A hidden `botcheck` honeypot field filters bots — Web3Forms expects
+  it as a boolean (`false` for humans), so send `.checked`, not `.value`.
+- **123-reg** — registrar and DNS for `zero-origin.co.uk`. The site's records are
+  `A` on `@` and `CNAME` on `www`, both pointing at Vercel. **Leave the `MX`
+  records alone** — they route Google Workspace email (`mail@zero-origin.co.uk`)
+  and have nothing to do with the site or the contact form.
+
+See `README.md` for the same details in handoff form.
+
 ## Before you finish
 
 - Run `npm run lint`, `npm run format:check`, and `npm test` — all must pass.
