@@ -108,12 +108,13 @@ try {
   run('gh', ['pr', 'create', '--fill', '--base', 'main', '--head', branch]);
 
   console.log('\nWaiting for CI to pass on the PR (this can take a couple of minutes)...');
-  // --auto squash-merges as soon as required checks pass; --delete-branch cleans up.
-  // We still poll the checks so the script blocks until it's actually done.
-  run('gh', ['pr', 'merge', branch, '--squash', '--delete-branch', '--auto']);
-
-  // Block until checks resolve, surfacing failures.
+  // Block until checks resolve, bailing fast on the first failure. We watch CI
+  // ourselves rather than using `gh pr merge --auto`, which needs the repo's
+  // auto-merge setting enabled (it isn't here).
   run('gh', ['pr', 'checks', branch, '--watch', '--fail-fast']);
+
+  // CI is green — squash-merge and delete the remote branch.
+  run('gh', ['pr', 'merge', branch, '--squash', '--delete-branch']);
 } catch (err) {
   fail(
     `PR/merge step failed: ${err.message}\n` +
