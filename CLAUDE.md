@@ -117,3 +117,6 @@ silently — start with `scripts/util.test.mjs`, which covers the pure CLI helpe
 - Only `git commit` / `git push` when explicitly asked. A push to the default
   branch triggers an automatic Vercel deploy — treat it as publishing.
 - Keep `README.md` and `content/README.md` accurate if you change workflows.
+- **Keep this file current.** When you change commands, tooling, conventions, or
+  structure during a session, update the relevant part of `CLAUDE.md` in the same
+  change so it never goes stale.
