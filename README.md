@@ -55,6 +55,50 @@ npm run product -- remove <slug>                          # delete
 
 After editing: `git commit` and `git push` — Vercel redeploys automatically.
 
+## Contact form
+
+The contact form ([`src/ContactPage.jsx`](src/ContactPage.jsx)) submits enquiries
+via [Web3Forms](https://web3forms.com) — a hosted form-to-email service. There is
+no backend: the form `POST`s straight to `api.web3forms.com`, which emails each
+submission to the address registered with the account. A hidden honeypot field
+(`botcheck`) filters out bots.
+
+Configuration:
+
+1. The form needs a Web3Forms **access key**, read from the `VITE_WEB3FORMS_KEY`
+   environment variable (see [`.env.example`](.env.example)).
+   - **Local:** copy `.env.example` to `.env.local` and paste the key.
+   - **Vercel:** add `VITE_WEB3FORMS_KEY` under **Project → Settings →
+     Environment Variables**, then redeploy (it's a build-time variable).
+2. The key is **public by design** — it only routes mail to the verified address,
+   so it's safe in the client bundle. The env var just keeps it out of source and
+   makes rotation easy. The mailbox/recipient is configured in the Web3Forms
+   dashboard, not in this repo.
+
+To change where enquiries are delivered, update the recipient in the Web3Forms
+dashboard — no code change needed.
+
+## External services
+
+Everything this site depends on that lives **outside this repo**:
+
+| Service                              | Used for                         | Where it's configured                                        |
+| ------------------------------------ | -------------------------------- | ------------------------------------------------------------ |
+| [Vercel](https://vercel.com)         | Hosting / builds / deploys       | Vercel project settings (incl. `VITE_WEB3FORMS_KEY` env var) |
+| [Web3Forms](https://web3forms.com)   | Contact-form delivery            | Web3Forms dashboard (recipient); key in env (see above)      |
+| [123-reg](https://www.123-reg.co.uk) | DNS for `zero-origin.co.uk`      | 123-reg control panel — see below                            |
+| GitHub                               | Source + CI (`prettier --check`) | `.github/workflows/`; `main` is branch-protected             |
+
+**DNS (123-reg).** The domain is registered at 123-reg, and its DNS points the
+site at Vercel:
+
+- `A` record on `@` → Vercel's IP
+- `CNAME` on `www` → Vercel
+
+> Note: 123-reg also holds the `MX` records for Google Workspace email
+> (`mail@zero-origin.co.uk`). Those are **unrelated to this site or the contact
+> form** — don't change them when updating the site's DNS.
+
 ## Project layout
 
 ```
