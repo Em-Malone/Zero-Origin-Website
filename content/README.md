@@ -1,9 +1,9 @@
 # Content
 
 This folder is the **single source of truth** for everything editable on the site.
-Change a file here, commit, and push — Vercel rebuilds and deploys automatically.
-
-You can edit these files locally, or directly in GitHub's web editor (the pencil icon).
+Change a file here, open a PR, and merging it to `main` rebuilds and deploys on
+Vercel automatically. See [Publishing changes](#publishing-changes) below — `main`
+is protected, so you can't push to it directly.
 
 ---
 
@@ -121,4 +121,34 @@ npm run product -- remove ltcue
 On Windows PowerShell, quote any value with spaces (as shown). The `--` rule is
 the same everywhere.
 
-After any change: `git add -A && git commit -m "..." && git push` → Vercel redeploys.
+---
+
+## Publishing changes
+
+`main` is protected and CI must pass, so all changes go through a pull request —
+you can't push to `main` directly, and merging is what publishes.
+
+```bash
+# 1. Branch off an up-to-date main
+git checkout main; git pull
+git checkout -b content/<short-description>
+
+# 2. Make changes via the CLI above (not by hand-editing JSON)
+
+# 3. Run the CI checks locally — all four must pass before you push
+npm run lint
+npm run format:check
+npm test
+npm run build
+
+# 4. Commit and push the branch
+git add content/ public/img/
+git commit -m "Add <project> to portfolio"
+git push -u origin content/<short-description>
+
+# 5. Open a PR; once CI is green, squash-merge it
+gh pr create --fill
+gh pr merge --squash
+```
+
+The squash-merge to `main` triggers the Vercel deploy — treat it as publishing.
