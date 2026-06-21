@@ -13,14 +13,17 @@ export function ProductsPage() {
       </header>
 
       <div className="zo-products">
-        {products.map((p, i) =>
-        <article key={p.name} className="zo-product">
-            {p.image &&
-          <div className="zo-product-shot">
-                <img src={p.image} alt={`${p.name} screenshot`}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        {products.map((p, i) => (
+          <article key={p.name} className="zo-product">
+            {p.image && (
+              <div className="zo-product-shot">
+                <img
+                  src={p.image}
+                  alt={`${p.name} screenshot`}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
               </div>
-          }
+            )}
             <div className="zo-product-head">
               <span className="zo-product-status">
                 <span className="zo-status-dot" />
@@ -32,22 +35,22 @@ export function ProductsPage() {
             <h2 className="zo-product-name">{p.name}</h2>
             <p className="zo-product-sub">{p.subtitle}</p>
             <p className="zo-product-desc">{p.description}</p>
-            {p.href && p.type !== 'concept' &&
-          <div className="zo-product-cta">
+            {p.href && p.type !== 'concept' && (
+              <div className="zo-product-cta">
                 <a
-              className="zo-product-link"
-              href={p.href}
-              target={isExternal(p.href) ? '_blank' : undefined}
-              rel={isExternal(p.href) ? 'noreferrer' : undefined}>
-
+                  className="zo-product-link"
+                  href={p.href}
+                  target={isExternal(p.href) ? '_blank' : undefined}
+                  rel={isExternal(p.href) ? 'noreferrer' : undefined}
+                >
                   {p.cta}
                   <span className="zo-product-link-arrow">{isExternal(p.href) ? '↗' : '↓'}</span>
                 </a>
               </div>
-          }
+            )}
           </article>
-        )}
+        ))}
       </div>
-    </main>);
-
+    </main>
+  );
 }

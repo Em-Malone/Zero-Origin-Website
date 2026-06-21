@@ -11,22 +11,22 @@ You can edit these files locally, or directly in GitHub's web editor (the pencil
 
 An array of project objects. Each one:
 
-| Field        | Type     | Notes                                                                 |
-|--------------|----------|-----------------------------------------------------------------------|
-| `slug`       | string   | Unique id, URL-safe (e.g. `aurora-residency`). Also the image folder. |
-| `title`      | string   | Shown on the card and modal.                                          |
-| `year`       | number   | e.g. `2025`.                                                          |
-| `venue`      | string   | e.g. `O2 Academy Brixton, London`.                                    |
-| `role`       | string   | Zero Origin's role on the project.                                    |
-| `discipline` | string   | Drives the filter buttons, e.g. `Live Music`, `Tour`, `Broadcast`.    |
-| `palette`    | string   | Placeholder art colour: `cool` \| `warm` \| `magenta` \| `mono`.      |
+| Field        | Type     | Notes                                                                                                                                      |
+| ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `slug`       | string   | Unique id, URL-safe (e.g. `aurora-residency`). Also the image folder.                                                                      |
+| `title`      | string   | Shown on the card and modal.                                                                                                               |
+| `year`       | number   | e.g. `2025`.                                                                                                                               |
+| `venue`      | string   | e.g. `O2 Academy Brixton, London`.                                                                                                         |
+| `role`       | string   | Zero Origin's role on the project.                                                                                                         |
+| `discipline` | string   | Drives the filter buttons, e.g. `Live Music`, `Tour`, `Broadcast`.                                                                         |
+| `palette`    | string   | Placeholder art colour: `cool` \| `warm` \| `magenta` \| `mono`.                                                                           |
 | `images`     | array    | Carousel images. Each entry is either a path string, or `{ "src": "/img/…", "credit": "Name" }` to print a per-photo credit. May be empty. |
-| `credits`    | object[] | `{ "role": "...", "name": "..." }` rows in the modal.                 |
-| `summary`    | string   | Paragraph in the modal.                                               |
+| `credits`    | object[] | `{ "role": "...", "name": "..." }` rows in the modal.                                                                                      |
+| `summary`    | string   | Paragraph in the modal.                                                                                                                    |
 
 **Images:** when `images` is empty, a generated placeholder is shown (using `palette`).
 When it has entries, the carousel and card thumbnail use the real photos.
-Don't hand-edit image *paths* — use the CLI below, which copies the files into
+Don't hand-edit image _paths_ — use the CLI below, which copies the files into
 `public/img/<slug>/` and keeps `images` in sync.
 
 **Photo credits** print bottom-left in the carousel (and change as you swipe).
@@ -49,7 +49,7 @@ where you want a credit.
 An array of product cards shown on the Products page.
 
 | Field         | Type   | Notes                                                      |
-|---------------|--------|------------------------------------------------------------|
+| ------------- | ------ | ---------------------------------------------------------- |
 | `slug`        | string | Unique id, URL-safe. Also the image folder.                |
 | `type`        | string | `paid` \| `free` \| `concept` (concept hides the link).    |
 | `status`      | string | Pill text, e.g. `Available now`.                           |
@@ -58,7 +58,7 @@ An array of product cards shown on the Products page.
 | `description` | string | Paragraph.                                                 |
 | `href`        | string | Link target. External (`https://…`) opens in a new tab.    |
 | `cta`         | string | Button label.                                              |
-| `price`       | string | Optional pill, e.g. `From £9/mo`.                           |
+| `price`       | string | Optional pill, e.g. `From £9/mo`.                          |
 | `image`       | string | Screenshot path, e.g. `/img/ltcue/01.png`. Empty = hidden. |
 
 Manage products with `npm run product …` (mirrors projects). Don't hand-edit
@@ -68,13 +68,13 @@ the `image` path — use `npm run product image <slug> <file>`.
 
 ## Image criteria
 
-|                  | Project carousel              | Product screenshot |
-|------------------|-------------------------------|--------------------|
-| **Aspect ratio** | 16:9 in the modal; the grid card crops it to 4:3 | 16:9 |
-| **Recommended**  | ~1600×900 (2000×1125 for retina) | ~1600×900 |
-| **Cropping**     | `object-fit: cover` — fills the frame, centre-cropped. Off-ratio images are cropped, not letterboxed | same |
-| **Formats**      | `.jpg`, `.png`, `.webp` (webp = smallest). The CLI keeps your file's extension | same |
-| **File size**    | Keep under ~300–500 KB each — images are committed to the git repo and served as-is | same |
+|                  | Project carousel                                                                                     | Product screenshot |
+| ---------------- | ---------------------------------------------------------------------------------------------------- | ------------------ |
+| **Aspect ratio** | 16:9 in the modal; the grid card crops it to 4:3                                                     | 16:9               |
+| **Recommended**  | ~1600×900 (2000×1125 for retina)                                                                     | ~1600×900          |
+| **Cropping**     | `object-fit: cover` — fills the frame, centre-cropped. Off-ratio images are cropped, not letterboxed | same               |
+| **Formats**      | `.jpg`, `.png`, `.webp` (webp = smallest). The CLI keeps your file's extension                       | same               |
+| **File size**    | Keep under ~300–500 KB each — images are committed to the git repo and served as-is                  | same               |
 
 There is **no automatic resizing or compression** — what you commit is what
 ships. Compress/resize before uploading (e.g. <https://squoosh.app>). The CLI

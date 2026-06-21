@@ -11,7 +11,13 @@ function seeded(seed) {
   };
 }
 
-export function MoodyPlaceholder({ seed = 1, label = '', aspect = '4/3', palette = 'cool', style = {} }) {
+export function MoodyPlaceholder({
+  seed = 1,
+  label = '',
+  aspect = '4/3',
+  palette = 'cool',
+  style = {},
+}) {
   const rand = seeded(seed);
   // Three palettes — cool (blue/teal), warm (amber/magenta), mono (neutral gray).
   const palettes = {
@@ -64,9 +70,21 @@ export function MoodyPlaceholder({ seed = 1, label = '', aspect = '4/3', palette
 
   const gid = `mp-${seed}-${palette}`;
   return (
-    <div style={{ position: 'relative', width: '100%', aspectRatio: aspect, overflow: 'hidden', background: p.bg, ...style }}>
-      <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice"
-           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }}>
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        aspectRatio: aspect,
+        overflow: 'hidden',
+        background: p.bg,
+        ...style,
+      }}
+    >
+      <svg
+        viewBox="0 0 600 450"
+        preserveAspectRatio="xMidYMid slice"
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }}
+      >
         <defs>
           <linearGradient id={`${gid}-sky`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={p.bg} />
@@ -119,9 +137,12 @@ export function MoodyPlaceholder({ seed = 1, label = '', aspect = '4/3', palette
 
         {/* Horizon line — very subtle */}
         <line
-          x1="0" y1={(horizon / 100) * 450}
-          x2="600" y2={(horizon / 100) * 450}
-          stroke="rgba(255,255,255,0.08)" strokeWidth="1"
+          x1="0"
+          y1={(horizon / 100) * 450}
+          x2="600"
+          y2={(horizon / 100) * 450}
+          stroke="rgba(255,255,255,0.08)"
+          strokeWidth="1"
         />
 
         {/* Geometric interruption */}
@@ -136,23 +157,24 @@ export function MoodyPlaceholder({ seed = 1, label = '', aspect = '4/3', palette
         {/* Film grain overlay — tiny dots */}
         <g opacity="0.12">
           {Array.from({ length: 80 }).map((_, i) => (
-            <circle
-              key={i}
-              cx={rand() * 600}
-              cy={rand() * 450}
-              r={rand() * 0.8}
-              fill="white"
-            />
+            <circle key={i} cx={rand() * 600} cy={rand() * 450} r={rand() * 0.8} fill="white" />
           ))}
         </g>
       </svg>
       {label && (
-        <div style={{
-          position: 'absolute', left: 12, bottom: 10,
-          fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.12em',
-          color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase',
-          pointerEvents: 'none',
-        }}>
+        <div
+          style={{
+            position: 'absolute',
+            left: 12,
+            bottom: 10,
+            fontFamily: 'var(--font-mono)',
+            fontSize: 10,
+            letterSpacing: '0.12em',
+            color: 'rgba(255,255,255,0.55)',
+            textTransform: 'uppercase',
+            pointerEvents: 'none',
+          }}
+        >
           {label}
         </div>
       )}

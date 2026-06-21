@@ -10,7 +10,14 @@ npm install
 npm run dev        # local dev server with hot reload
 npm run build      # production build → dist/
 npm run preview    # serve the production build locally
+
+npm run lint       # ESLint
+npm run format     # Prettier (rewrite files); format:check to verify only
+npm test           # Vitest
 ```
+
+Before pushing, run `npm run lint`, `npm run format:check`, and `npm test` — all
+should pass.
 
 ## Deploy to Vercel
 
@@ -64,5 +71,11 @@ src/
   styles.css           All styles
 content/                Editable JSON content (source of truth)
 public/img/<slug>/      Committed carousel images
-scripts/manage.mjs      The `npm run project` CLI
+scripts/
+  manage.mjs           The `npm run project` / `product` CLI
+  util.mjs             Pure CLI helpers (unit-tested)
+  util.test.mjs        Vitest tests for the helpers
+eslint.config.js        ESLint flat config
+.prettierrc.json        Prettier config
+vitest.config.js        Vitest config
 ```
