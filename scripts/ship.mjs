@@ -13,7 +13,7 @@
 // Local checks (lint, format:check, test, build) run before anything is pushed;
 // if any fail, the script stops and nothing leaves your machine.
 
-import { execFileSync, spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 
 const [branch, ...messageParts] = process.argv.slice(2);
 
@@ -26,10 +26,19 @@ const commitMessage =
   messageParts.join(' ').trim() ||
   branch.replace(/[-_]+/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
 
+// On Windows, npm/npx/gh are .cmd shims that Node can't launch directly without
+// a shell, so we run through one there. With a shell, args go through shell
+// parsing — so quote any that contain spaces (commit messages, PR titles).
+const useShell = process.platform === 'win32';
+const quote = (arg) => (useShell && /\s/.test(arg) ? `"${arg}"` : arg);
+
 // Run a command, streaming its output. Throws (non-zero exit) on failure.
 function run(cmd, args, opts = {}) {
   console.log(`\n$ ${cmd} ${args.join(' ')}`);
-  const result = spawnSync(cmd, args, { stdio: 'inherit', shell: false, ...opts });
+  const result = spawnSync(cmd, args.map(quote), { stdio: 'inherit', shell: useShell, ...opts });
+  if (result.error) {
+    throw new Error(`Could not run ${cmd}: ${result.error.message}`);
+  }
   if (result.status !== 0) {
     throw new Error(`Command failed (exit ${result.status}): ${cmd} ${args.join(' ')}`);
   }
@@ -37,7 +46,11 @@ function run(cmd, args, opts = {}) {
 
 // Capture stdout of a command as a trimmed string.
 function capture(cmd, args) {
-  return execFileSync(cmd, args, { encoding: 'utf8' }).trim();
+  const result = spawnSync(cmd, args.map(quote), { encoding: 'utf8', shell: useShell });
+  if (result.error) {
+    throw new Error(`Could not run ${cmd}: ${result.error.message}`);
+  }
+  return (result.stdout || '').trim();
 }
 
 function fail(message) {
