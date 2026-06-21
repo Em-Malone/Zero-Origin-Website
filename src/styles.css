@@ -1094,7 +1094,12 @@
     .zo-credit-dash {
       border-top: 1px dotted var(--line-strong);
       height: 1px;
-      align-self: center;
+      /* Sit on the first line's text, not the row centre — otherwise a role
+         (or name) that wraps to two lines makes the row taller and a centred
+         dash drifts down out of line with the single-line text beside it.
+         ~0.6em from the top lands the dash on the first line's midline. */
+      align-self: start;
+      margin-top: 0.62em;
     }
     .zo-credit-name { color: var(--fg); }
     @media (max-width: 560px) {
