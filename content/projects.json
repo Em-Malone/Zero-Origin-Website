@@ -1,73 +1,52 @@
 [
   {
-    "slug": "aurora-residency",
-    "title": "Aurora — Residency",
-    "year": 2025,
-    "venue": "O2 Academy Brixton, London",
-    "role": "Media server programming & show operation",
-    "palette": "cool",
-    "discipline": "Live Music",
-    "images": [],
-    "credits": [
-      {
-        "role": "Show Designer",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Production Designer",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Production Manager",
-        "name": "Matt Dennett · Zero Origin"
-      },
-      {
-        "role": "Media Server",
-        "name": "Zero Origin"
-      },
-      {
-        "role": "Lighting Design",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Video Production",
-        "name": "[placeholder]"
-      }
-    ],
-    "summary": "Six-night residency. Disguise gx2-based video system across an upstage LED wall and two flown IMAG surfaces, with live content cueing triggered from timecode."
-  },
-  {
-    "slug": "meridian-tour",
-    "title": "Meridian — European Tour",
-    "year": 2025,
-    "venue": "12 cities · EU",
-    "role": "Technical Direction & Media Server",
+    "slug": "eurovision-song-contest-vienna",
+    "title": "Eurovision Song Contest Vienna",
+    "year": 2026,
+    "venue": "Wiener Stadthalle, Vienna",
+    "role": "Screens Programmer",
     "palette": "warm",
-    "discipline": "Tour",
-    "images": [],
+    "discipline": "Broadcast",
+    "images": [
+      { "src": "/img/eurovision-song-contest-vienna/01.webp", "credit": "Alberto Morand" },
+      { "src": "/img/eurovision-song-contest-vienna/02.jpg",  "credit": "Alberto Morand" },
+      { "src": "/img/eurovision-song-contest-vienna/03.jpg", "credit": "ORG / Patrick Bauer" }
+    ],
     "credits": [
       {
-        "role": "Creative Director",
-        "name": "[placeholder]"
+        "role": "Screens Producer",
+        "name": "Sam Lisher"
       },
       {
-        "role": "Technical Director",
-        "name": "Matt Dennett · Zero Origin"
+        "role": "Associate screens producer",
+        "name": "Andy Coates"
       },
       {
-        "role": "Media Server Programmer",
-        "name": "Zero Origin"
+        "role": "Screens programmers",
+        "name": "Luke Collins, Emily Malone"
       },
       {
-        "role": "Tour Manager",
-        "name": "[placeholder]"
+        "role": "System Technician",
+        "name": "Maciej Alfs"
       },
       {
-        "role": "Production Co.",
-        "name": "[placeholder]"
+        "role": "Network Engineer",
+        "name": "Gustav Rahmquist"
+      },
+      {
+        "role": "System Engineers",
+        "name": "Arash Shiri, Philip Björkebro"
+      },
+      {
+        "role": "LED System Engineer",
+        "name": "Ulf Nilsson"
+      },
+      {
+        "role": "Program manager",
+        "name": "Karl Wigenius"
       }
     ],
-    "summary": "Rolling 12-city arena tour. Trucked video package, timecoded show with live camera integration, and local crew handover at every stop."
+    "summary": "Live broadcast of the 70th ESC, with a viewership of 131 million for the Grand Final. ROE LED, Megapixel processing, GX 3 servers with IPVFCs for ST 2110 distribution."
   },
   {
     "slug": "halcyon-launch",
