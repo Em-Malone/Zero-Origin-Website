@@ -107,6 +107,14 @@ silently — start with `scripts/util.test.mjs`, which covers the pure CLI helpe
   raw multi-MB originals.
 - Keep content (the JSON) separate from presentation (the components). Components
   render whatever the JSON provides; they should not hard-code project data.
+- To release a content change end-to-end, `scripts/ship.mjs` automates the whole
+  flow — local CI checks, branch, commit, push, PR, wait for CI, squash-merge,
+  delete branch, back to `main`:
+  ```bash
+  npm run ship -- <branch-name> [commit message...]
+  ```
+  It runs from `main`, refuses to push if the local checks fail, and merges only
+  once GitHub CI is green. Treat it as publishing (it triggers a Vercel deploy).
 
 ## External services (off-repo dependencies)
 

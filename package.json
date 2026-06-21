@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "project": "node scripts/manage.mjs project",
-    "product": "node scripts/manage.mjs product"
+    "product": "node scripts/manage.mjs product",
+    "ship": "node scripts/ship.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

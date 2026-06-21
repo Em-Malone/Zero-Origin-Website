@@ -53,7 +53,24 @@ npm run product -- image <slug> ./shot.png               # set the screenshot
 npm run product -- remove <slug>                          # delete
 ```
 
-After editing: `git commit` and `git push` — Vercel redeploys automatically.
+### Ship a change in one command
+
+Once you've made an edit, `npm run ship` does the whole release dance — runs the
+CI checks locally, creates a branch, commits, pushes, opens a PR, waits for CI to
+pass, squash-merges, deletes the branch, and drops you back on an up-to-date
+`main`. Just give it a branch name:
+
+```bash
+npm run ship -- add-fta-project                          # commit msg = branch name
+npm run ship -- fix-lol-slug "Fix LoL slug 2026 -> 2025"  # custom commit message
+```
+
+If the local checks fail, nothing is pushed. Run it from `main` with changes
+staged or unstaged — it picks them all up. A merge to `main` triggers the Vercel
+deploy, so treat `ship` as publishing.
+
+To handle the commit/merge yourself instead: `git commit` and `git push` —
+Vercel redeploys automatically.
 
 ## Contact form
 
@@ -123,6 +140,7 @@ content/                Editable JSON content (source of truth)
 public/img/<slug>/      Committed carousel images
 scripts/
   manage.mjs           The `npm run project` / `product` CLI
+  ship.mjs             `npm run ship` — branch, check, PR, merge in one go
   util.mjs             Pure CLI helpers (unit-tested)
   util.test.mjs        Vitest tests for the helpers
 eslint.config.js        ESLint flat config
