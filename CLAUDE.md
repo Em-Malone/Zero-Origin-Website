@@ -32,10 +32,17 @@ npm test             # Vitest, single run
 npm run test:watch   # Vitest, watch mode
 ```
 
-**Before finishing any change, run `npm run lint`, `npm run format:check`, and
-`npm test` — they must all pass.** For build-affecting changes also run
-`npm run build`. Don't assume; verify. There is no CI gate yet, so these are
-enforced by you, not a pipeline.
+## CI — what must pass
+
+`main` is protected: CI (`.github/workflows/ci.yml`) runs on every push/PR and
+all four steps must pass to merge, so run them before you finish:
+
+- `npm run lint` — no ESLint errors.
+- `npm run format:check` — Prettier-clean. Rules (`.prettierrc.json`): single
+  quotes, semicolons, 2-space indent, 100-char width, trailing commas, always
+  parenthesise arrow params. Just run `npm run format` to comply.
+- `npm test` — Vitest green.
+- `npm run build` — builds successfully.
 
 ## Coding standards — enforce these
 
