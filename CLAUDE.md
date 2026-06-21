@@ -121,10 +121,13 @@ the repo — change them in their own dashboards, and keep this list accurate.
   `.env.example`). The recipient address is configured in the Web3Forms dashboard,
   not in code. A hidden `botcheck` honeypot field filters bots — Web3Forms expects
   it as a boolean (`false` for humans), so send `.checked`, not `.value`.
-- **123-reg** — registrar and DNS for `zero-origin.co.uk`. The site's records are
-  `A` on `@` and `CNAME` on `www`, both pointing at Vercel. **Leave the `MX`
-  records alone** — they route Google Workspace email (`mail@zero-origin.co.uk`)
-  and have nothing to do with the site or the contact form.
+- **123-reg** — registrar for `zero-origin.co.uk`. DNS is served by GoDaddy's
+  nameservers (`ns67`/`ns68.domaincontrol.com`), but you edit records through the
+  **123-reg** panel, which writes that zone. The site's records are `A` on `@` and
+  `CNAME` on `www`, both pointing at Vercel; `www` is primary and the bare domain
+  308-redirects to it. **Leave the `MX` records alone** — they route Google
+  Workspace email (`mail@zero-origin.co.uk`) and have nothing to do with the site
+  or the contact form.
 
 See `README.md` for the same details in handoff form.
 

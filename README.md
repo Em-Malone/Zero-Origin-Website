@@ -86,16 +86,22 @@ Everything this site depends on that lives **outside this repo**:
 | ------------------------------------ | -------------------------------- | ------------------------------------------------------------ |
 | [Vercel](https://vercel.com)         | Hosting / builds / deploys       | Vercel project settings (incl. `VITE_WEB3FORMS_KEY` env var) |
 | [Web3Forms](https://web3forms.com)   | Contact-form delivery            | Web3Forms dashboard (recipient); key in env (see above)      |
-| [123-reg](https://www.123-reg.co.uk) | DNS for `zero-origin.co.uk`      | 123-reg control panel — see below                            |
+| [123-reg](https://www.123-reg.co.uk) | Registrar for `zero-origin.co.uk` | 123-reg control panel — see below                           |
 | GitHub                               | Source + CI (`prettier --check`) | `.github/workflows/`; `main` is branch-protected             |
 
-**DNS (123-reg).** The domain is registered at 123-reg, and its DNS points the
-site at Vercel:
+**DNS.** The domain is registered at 123-reg, but its DNS is served by GoDaddy's
+nameservers (`ns67` / `ns68.domaincontrol.com`). You still edit the records
+through the **123-reg** control panel — it writes to that zone — so 123-reg is the
+panel to use despite the GoDaddy nameservers. Records that point the site at Vercel:
 
-- `A` record on `@` → Vercel's IP
-- `CNAME` on `www` → Vercel
+- `A` on `@` → Vercel (use the IP shown in Vercel → Settings → Domains)
+- `CNAME` on `www` → Vercel (use the target shown there)
 
-> Note: 123-reg also holds the `MX` records for Google Workspace email
+`www.zero-origin.co.uk` is the canonical (primary) domain; the bare
+`zero-origin.co.uk` 308-redirects to it. Vercel issues and renews the HTTPS
+certificate automatically once these records resolve.
+
+> Note: the same zone also holds the `MX` records for Google Workspace email
 > (`mail@zero-origin.co.uk`). Those are **unrelated to this site or the contact
 > form** — don't change them when updating the site's DNS.
 

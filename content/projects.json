@@ -58,7 +58,7 @@
     "summary": "Live broadcast of the 70th ESC, with a viewership of 131 million for the Grand Final. ROE LED, Megapixel processing, GX 3 servers with IPVFCs for ST 2110 distribution."
   },
   {
-    "slug": "league-of-legends-2026",
+    "slug": "league-of-legends-2025",
     "title": "League of Legends World Championships",
     "year": 2025,
     "venue": "Chengdu",
@@ -67,23 +67,23 @@
     "discipline": "Broadcast",
     "images": [
       {
-        "src": "/img/league-of-legends-2026/01.jpg",
+        "src": "/img/league-of-legends-2025/01.jpg",
         "credit": "Riot Games / Christian Betancourt"
       },
       {
-        "src": "/img/league-of-legends-2026/02.jpg",
+        "src": "/img/league-of-legends-2025/02.jpg",
         "credit": "Riot Games / Christian Betancourt"
       },
       {
-        "src": "/img/league-of-legends-2026/03.jpg",
+        "src": "/img/league-of-legends-2025/03.jpg",
         "credit": "Riot Games / Yicun Liu"
       },
       {
-        "src": "/img/league-of-legends-2026/04.jpg",
+        "src": "/img/league-of-legends-2025/04.jpg",
         "credit": "Riot Games / Yicun Liu"
       },
       {
-        "src": "/img/league-of-legends-2026/05.jpg",
+        "src": "/img/league-of-legends-2025/05.jpg",
         "credit": "Riot Games / Yicun Liu"
       }
     ],
@@ -128,10 +128,6 @@
     "palette": "magenta",
     "discipline": "Awards",
     "images": [
-      {
-        "src": "/img/fta-2025/01.png",
-        "credit": "@michelesibiloni & @gianluca_luppi"
-      },
       {
         "src": "/img/fta-2025/02.png",
         "credit": "@michelesibiloni & @gianluca_luppi"
