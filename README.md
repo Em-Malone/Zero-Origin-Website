@@ -31,17 +31,19 @@ All editable content lives in [`content/`](content/) — see
   `npm run project …` (see below). Images are committed to `public/img/<slug>/`.
 - **Products** → `content/products.json`.
 
-```bash
-npm run project list                                  # list projects
-npm run project add --title "…" --year 2025 …         # add
-npm run project edit <slug> --title "…"               # edit
-npm run project images <slug> ./photo.jpg …           # upload carousel images
-npm run project remove <slug>                          # delete
+> Put `--` right after `project` / `product` so npm passes your flags through.
 
-npm run product list                                  # products work the same way
-npm run product add --name "…" --href "#" --cta "…"   # add
-npm run product image <slug> ./shot.png               # set the screenshot
-npm run product remove <slug>                          # delete
+```bash
+npm run project -- list                                  # list projects
+npm run project -- add --title "…" --year 2025 …         # add
+npm run project -- edit <slug> --title "…"               # edit
+npm run project -- images <slug> ./photo.jpg …           # upload carousel images
+npm run project -- remove <slug>                          # delete
+
+npm run product -- list                                  # products work the same way
+npm run product -- add --name "…" --href "#" --cta "…"   # add
+npm run product -- image <slug> ./shot.png               # set the screenshot
+npm run product -- remove <slug>                          # delete
 ```
 
 After editing: `git commit` and `git push` — Vercel redeploys automatically.

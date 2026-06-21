@@ -47,12 +47,17 @@ export function Footer() {
   );
 }
 
-// Build a list of gallery slides for a project. Today these are generated
-// moody placeholders (varied seed + palette); to use real photography later,
-// give each project an `images: [url, ...]` array and map over that instead.
+// Build a list of gallery slides for a project. With real photography, each
+// `images[]` entry is either a bare URL string or `{ src, credit }` — the
+// latter lets a per-photo credit print bottom-left in the carousel. With no
+// images we fall back to generated moody placeholders (varied seed + palette).
 function projectSlides(project) {
   if (project.images && project.images.length) {
-    return project.images.map((src) => ({ type: 'image', src }));
+    return project.images.map((img) =>
+      typeof img === 'string'
+        ? { type: 'image', src: img, credit: '' }
+        : { type: 'image', src: img.src, credit: img.credit || '' }
+    );
   }
   const palettes = ['cool', 'warm', 'magenta', 'mono'];
   const base = project.title.length + project.year;
@@ -114,7 +119,9 @@ function ProjectGallery({ project }) {
         ))}
       </div>
 
-      <div className="zo-gallery-tag">{project.discipline} · {project.year}</div>
+      {slides[i] && slides[i].credit && (
+        <div className="zo-gallery-credit">Photo · {slides[i].credit}</div>
+      )}
 
       {!single && (
         <React.Fragment>
@@ -167,11 +174,10 @@ export function ProjectDetail({ project, onClose }) {
             <span>{project.venue}</span>
           </div>
           <h2 className="zo-modal-title">{project.title}</h2>
-          <p className="zo-modal-summary">{project.summary}</p>
           <div className="zo-modal-role">
-            <div className="zo-field-label">Zero Origin</div>
-            <div className="zo-field-value">{project.role}</div>
+            <div className="zo-field-label">{project.role}</div>
           </div>
+          <p className="zo-modal-summary">{project.summary}</p>
           <div className="zo-modal-creditsblock">
             <div className="zo-field-label">Credits</div>
             <div className="zo-credits">

@@ -4,6 +4,9 @@ import React from 'react';
 import { MoodyPlaceholder } from './MoodyPlaceholder.jsx';
 import projects from '../content/projects.json';
 
+// An images[] entry is either a bare URL string or { src, credit }.
+const imageSrc = (img) => (typeof img === 'string' ? img : img && img.src);
+
 export function ProjectsPage({ openProject }) {
   const [filter, setFilter] = React.useState('All');
   const disciplines = ['All', ...Array.from(new Set(projects.map(p => p.discipline)))];
@@ -39,7 +42,7 @@ function ProjectsGrid({ projects, openProject }) {
         <button key={p.slug} className="zo-grid-card" onClick={() => openProject(p.slug)}>
           <div className="zo-grid-img">
             {p.images && p.images.length ? (
-              <img src={p.images[0]} alt={p.title} className="zo-grid-photo"
+              <img src={imageSrc(p.images[0])} alt={p.title} className="zo-grid-photo"
                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
               <MoodyPlaceholder seed={p.title.length + p.year} palette={p.palette} aspect="4/3" />
