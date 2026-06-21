@@ -9,8 +9,8 @@ const imageSrc = (img) => (typeof img === 'string' ? img : img && img.src);
 
 export function ProjectsPage({ openProject }) {
   const [filter, setFilter] = React.useState('All');
-  const disciplines = ['All', ...Array.from(new Set(projects.map(p => p.discipline)))];
-  const visible = filter === 'All' ? projects : projects.filter(p => p.discipline === filter);
+  const disciplines = ['All', ...Array.from(new Set(projects.map((p) => p.discipline)))];
+  const visible = filter === 'All' ? projects : projects.filter((p) => p.discipline === filter);
 
   return (
     <main className="zo-page">
@@ -18,13 +18,16 @@ export function ProjectsPage({ openProject }) {
         <div className="zo-page-eyebrow">/ Projects</div>
         <h1 className="zo-page-title">Selected work.</h1>
         <div className="zo-filters">
-          {disciplines.map(d => (
+          {disciplines.map((d) => (
             <button
               key={d}
               className={`zo-filter ${filter === d ? 'is-active' : ''}`}
               onClick={() => setFilter(d)}
             >
-              {d} <span className="zo-filter-count">{d === 'All' ? projects.length : projects.filter(p => p.discipline === d).length}</span>
+              {d}{' '}
+              <span className="zo-filter-count">
+                {d === 'All' ? projects.length : projects.filter((p) => p.discipline === d).length}
+              </span>
             </button>
           ))}
         </div>
@@ -42,8 +45,18 @@ function ProjectsGrid({ projects, openProject }) {
         <button key={p.slug} className="zo-grid-card" onClick={() => openProject(p.slug)}>
           <div className="zo-grid-img">
             {p.images && p.images.length ? (
-              <img src={imageSrc(p.images[0])} alt={p.title} className="zo-grid-photo"
-                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img
+                src={imageSrc(p.images[0])}
+                alt={p.title}
+                className="zo-grid-photo"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
             ) : (
               <MoodyPlaceholder seed={p.title.length + p.year} palette={p.palette} aspect="4/3" />
             )}

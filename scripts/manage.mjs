@@ -25,10 +25,19 @@
 //
 // After any change: git add -A && git commit && git push  → Vercel redeploys.
 
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync, readdirSync, statSync } from 'node:fs';
+import {
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  rmSync,
+  existsSync,
+  readdirSync,
+  statSync,
+} from 'node:fs';
 import { basename, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
+import { slugify, parse } from './util.mjs';
 
 const ROOT = resolve(fileURLToPath(import.meta.url), '../..');
 const IMG_ROOT = join(ROOT, 'public', 'img');
@@ -37,22 +46,14 @@ const dataPath = (file) => join(ROOT, 'content', file);
 const PALETTES = ['cool', 'warm', 'magenta', 'mono'];
 
 // ── Shared helpers ──────────────────────────────────────────────────────────
-const die = (msg) => { console.error('✗ ' + msg); process.exit(1); };
+const die = (msg) => {
+  console.error('✗ ' + msg);
+  process.exit(1);
+};
 const ok = (msg) => console.log('✓ ' + msg);
-const slugify = (s) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 const read = (file) => JSON.parse(readFileSync(dataPath(file), 'utf8'));
 const write = (file, list) => writeFileSync(dataPath(file), JSON.stringify(list, null, 2) + '\n');
-
-// --flag value  →  { flag: value }; bare args collected positionally.
-function parse(argv) {
-  const flags = {}; const pos = [];
-  for (let i = 0; i < argv.length; i++) {
-    if (argv[i].startsWith('--')) flags[argv[i].slice(2)] = argv[++i];
-    else pos.push(argv[i]);
-  }
-  return { flags, pos };
-}
 
 function find(list, slug, kind) {
   const x = list.find((e) => e.slug === slug);
@@ -61,9 +62,9 @@ function find(list, slug, kind) {
 }
 
 // Compression settings — tuned for web display, not print.
-const MAX_EDGE = 2400;     // longest-edge cap in px; downscales big camera/phone originals
-const JPEG_QUALITY = 82;   // visually near-lossless for photos, large size savings
-const PNG_COMPRESSION = 9;  // max zlib effort; lossless, kept for screenshots/UI
+const MAX_EDGE = 2400; // longest-edge cap in px; downscales big camera/phone originals
+const JPEG_QUALITY = 82; // visually near-lossless for photos, large size savings
+const PNG_COMPRESSION = 9; // max zlib effort; lossless, kept for screenshots/UI
 
 const kb = (bytes) => Math.round(bytes / 1024);
 
@@ -119,12 +120,15 @@ const project = {
     if (!data.length) return console.log('(no projects yet)');
     for (const p of data) {
       const n = (p.images || []).length;
-      console.log(`  ${p.slug.padEnd(22)} ${String(p.year).padEnd(6)} ${p.discipline.padEnd(14)} ${n} image${n === 1 ? '' : 's'}  ${p.title}`);
+      console.log(
+        `  ${p.slug.padEnd(22)} ${String(p.year).padEnd(6)} ${p.discipline.padEnd(14)} ${n} image${n === 1 ? '' : 's'}  ${p.title}`,
+      );
     }
   },
   add({ flags }) {
     if (!flags.title) die('add requires at least --title');
-    if (flags.palette && !PALETTES.includes(flags.palette)) die(`palette must be one of: ${PALETTES.join(', ')}`);
+    if (flags.palette && !PALETTES.includes(flags.palette))
+      die(`palette must be one of: ${PALETTES.join(', ')}`);
     const data = read(PROJECTS);
     const slug = slugify(flags.slug || flags.title);
     if (data.some((p) => p.slug === slug)) die(`slug "${slug}" already exists`);
@@ -141,11 +145,14 @@ const project = {
       summary: flags.summary || '',
     });
     write(PROJECTS, data);
-    ok(`added project "${flags.title}" (${slug}). Add photos: npm run project images ${slug} ./photo.jpg`);
+    ok(
+      `added project "${flags.title}" (${slug}). Add photos: npm run project images ${slug} ./photo.jpg`,
+    );
   },
   edit({ flags, pos }) {
     if (!pos[0]) die('usage: npm run project edit <slug> --title ...');
-    if (flags.palette && !PALETTES.includes(flags.palette)) die(`palette must be one of: ${PALETTES.join(', ')}`);
+    if (flags.palette && !PALETTES.includes(flags.palette))
+      die(`palette must be one of: ${PALETTES.join(', ')}`);
     const data = read(PROJECTS);
     const p = find(data, pos[0], 'project');
     for (const f of PROJECT_FIELDS) {
@@ -175,7 +182,8 @@ const project = {
   rmimage({ pos }) {
     const [slug, idxRaw] = pos;
     const idx = Number(idxRaw);
-    if (!slug || !Number.isInteger(idx)) die('usage: npm run project rmimage <slug> <index>  (0-based)');
+    if (!slug || !Number.isInteger(idx))
+      die('usage: npm run project rmimage <slug> <index>  (0-based)');
     const data = read(PROJECTS);
     const p = find(data, slug, 'project');
     const imgs = p.images || [];
@@ -191,7 +199,10 @@ const project = {
     if (!pos[0]) die('usage: npm run project remove <slug>');
     const data = read(PROJECTS);
     find(data, pos[0], 'project');
-    write(PROJECTS, data.filter((p) => p.slug !== pos[0]));
+    write(
+      PROJECTS,
+      data.filter((p) => p.slug !== pos[0]),
+    );
     rmImgDir(pos[0]);
     ok(`removed project "${pos[0]}" and its images`);
   },
@@ -199,14 +210,25 @@ const project = {
 
 // ── Products ────────────────────────────────────────────────────────────────
 const PRODUCTS = 'products.json';
-const PRODUCT_FIELDS = ['name', 'type', 'status', 'subtitle', 'description', 'href', 'cta', 'price'];
+const PRODUCT_FIELDS = [
+  'name',
+  'type',
+  'status',
+  'subtitle',
+  'description',
+  'href',
+  'cta',
+  'price',
+];
 
 const product = {
   list() {
     const data = read(PRODUCTS);
     if (!data.length) return console.log('(no products yet)');
     for (const p of data) {
-      console.log(`  ${p.slug.padEnd(16)} ${(p.type || '').padEnd(8)} ${p.image ? '[image]' : '[     ]'}  ${p.name}`);
+      console.log(
+        `  ${p.slug.padEnd(16)} ${(p.type || '').padEnd(8)} ${p.image ? '[image]' : '[     ]'}  ${p.name}`,
+      );
     }
   },
   add({ flags }) {
@@ -226,7 +248,9 @@ const product = {
       image: '',
     });
     write(PRODUCTS, data);
-    ok(`added product "${flags.name}" (${slug}). Add a shot: npm run product image ${slug} ./shot.png`);
+    ok(
+      `added product "${flags.name}" (${slug}). Add a shot: npm run product image ${slug} ./shot.png`,
+    );
   },
   edit({ flags, pos }) {
     if (!pos[0]) die('usage: npm run product edit <slug> --status ...');
@@ -264,7 +288,10 @@ const product = {
     if (!pos[0]) die('usage: npm run product remove <slug>');
     const data = read(PRODUCTS);
     find(data, pos[0], 'product');
-    write(PRODUCTS, data.filter((p) => p.slug !== pos[0]));
+    write(
+      PRODUCTS,
+      data.filter((p) => p.slug !== pos[0]),
+    );
     rmImgDir(pos[0]);
     ok(`removed product "${pos[0]}" and its image`);
   },
@@ -274,12 +301,22 @@ const product = {
 // Invoked as `manage.mjs <kind> <cmd> ...`, where kind is project|product.
 // The npm scripts ("project"/"product") pass the kind as the first arg.
 const tables = { project, product };
-const [kind, cmd, ...rest] = process.argv.slice(2);
-const table = tables[kind];
-if (!table) { console.log('Usage: npm run project <cmd> | npm run product <cmd>'); process.exit(kind ? 1 : 0); }
-if (!cmd || !table[cmd]) {
-  console.log(`${kind} commands: ${Object.keys(table).join(' | ')}`);
-  console.log(`Run a command with no further args for its usage, e.g. npm run ${kind} add`);
-  process.exit(cmd ? 1 : 0);
+
+// Only run the CLI when invoked directly (node manage.mjs …), not when this
+// module is imported — e.g. by the unit tests for the pure helpers above.
+async function main() {
+  const [kind, cmd, ...rest] = process.argv.slice(2);
+  const table = tables[kind];
+  if (!table) {
+    console.log('Usage: npm run project <cmd> | npm run product <cmd>');
+    process.exit(kind ? 1 : 0);
+  }
+  if (!cmd || !table[cmd]) {
+    console.log(`${kind} commands: ${Object.keys(table).join(' | ')}`);
+    console.log(`Run a command with no further args for its usage, e.g. npm run ${kind} add`);
+    process.exit(cmd ? 1 : 0);
+  }
+  await table[cmd](parse(rest));
 }
-await table[cmd](parse(rest));
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) await main();

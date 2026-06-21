@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import './styles.css';
@@ -29,10 +29,12 @@ function TweaksPanel({ open, logo, setLogo }) {
         <div className="zo-tweak-group">
           <label>Logo mark</label>
           <div className="zo-tweak-row">
-            {opts.map(o => (
-              <button key={o.value}
+            {opts.map((o) => (
+              <button
+                key={o.value}
                 className={`zo-tweak-opt ${logo === o.value ? 'is-active' : ''}`}
-                onClick={() => setLogo(o.value)}>
+                onClick={() => setLogo(o.value)}
+              >
                 <ZOMark size={18} variant={o.value} />
                 {o.label}
               </button>
@@ -51,13 +53,19 @@ function App() {
   });
   const [openSlug, setOpenSlug] = useState(null);
   const [logo, setLogoState] = useState(() => {
-    try { return localStorage.getItem(LOGO_KEY) || 'b'; } catch { return 'b'; }
+    try {
+      return localStorage.getItem(LOGO_KEY) || 'b';
+    } catch {
+      return 'b';
+    }
   });
   const [tweaksOpen, setTweaksOpen] = useState(false);
 
   const setLogo = useCallback((v) => {
     setLogoState(v);
-    try { localStorage.setItem(LOGO_KEY, v); } catch {}
+    try {
+      localStorage.setItem(LOGO_KEY, v);
+    } catch {}
   }, []);
 
   // Edit-mode handshake: register listener FIRST, then announce availability.
@@ -69,7 +77,9 @@ function App() {
       if (d.type === '__deactivate_edit_mode') setTweaksOpen(false);
     };
     window.addEventListener('message', onMsg);
-    try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch {}
+    try {
+      window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    } catch {}
     return () => window.removeEventListener('message', onMsg);
   }, []);
 
@@ -90,7 +100,7 @@ function App() {
   }, []);
 
   const openProject = useCallback((slug) => setOpenSlug(slug), []);
-  const openProjectObj = openSlug ? projects.find(p => p.slug === openSlug) : null;
+  const openProjectObj = openSlug ? projects.find((p) => p.slug === openSlug) : null;
 
   return (
     <div className="zo-app">

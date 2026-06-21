@@ -12,17 +12,29 @@ export function Nav({ route, goto, logo }) {
   ];
   return (
     <nav className="zo-nav">
-      <a href="#home" className="zo-nav-brand"
-         onClick={(e) => { e.preventDefault(); goto('home'); }}
-         aria-label="Zero Origin — Home">
+      <a
+        href="#home"
+        className="zo-nav-brand"
+        onClick={(e) => {
+          e.preventDefault();
+          goto('home');
+        }}
+        aria-label="Zero Origin — Home"
+      >
         <ZOMark size={24} variant={logo} />
         <span className="zo-nav-brand-text">Zero Origin</span>
       </a>
       <div className="zo-nav-links">
         {links.map(([key, label], i) => (
-          <a key={key} href={`#${key}`}
-             onClick={(e) => { e.preventDefault(); goto(key); }}
-             className={`zo-nav-link ${route === key ? 'is-active' : ''}`}>
+          <a
+            key={key}
+            href={`#${key}`}
+            onClick={(e) => {
+              e.preventDefault();
+              goto(key);
+            }}
+            className={`zo-nav-link ${route === key ? 'is-active' : ''}`}
+          >
             <span className="zo-nav-num">{String(i + 1).padStart(2, '0')}</span>
             <span>{label}</span>
           </a>
@@ -37,7 +49,9 @@ export function Footer() {
     <footer className="zo-footer">
       <div className="zo-footer-row">
         <div className="zo-footer-col">
-          <span className="zo-footer-muted">Zero Origin Ltd · Technical services for live entertainment</span>
+          <span className="zo-footer-muted">
+            Zero Origin Ltd · Technical services for live entertainment
+          </span>
         </div>
         <div className="zo-footer-col">
           <span className="zo-footer-muted">est. 2014 · London</span>
@@ -56,7 +70,7 @@ function projectSlides(project) {
     return project.images.map((img) =>
       typeof img === 'string'
         ? { type: 'image', src: img, credit: '' }
-        : { type: 'image', src: img.src, credit: img.credit || '' }
+        : { type: 'image', src: img.src, credit: img.credit || '' },
     );
   }
   const palettes = ['cool', 'warm', 'magenta', 'mono'];
@@ -65,7 +79,10 @@ function projectSlides(project) {
   return Array.from({ length: count }).map((_, i) => ({
     type: 'placeholder',
     seed: base + i * 7,
-    palette: i === 0 ? project.palette : palettes[(palettes.indexOf(project.palette) + i) % palettes.length],
+    palette:
+      i === 0
+        ? project.palette
+        : palettes[(palettes.indexOf(project.palette) + i) % palettes.length],
   }));
 }
 
@@ -75,9 +92,12 @@ function ProjectGallery({ project }) {
   const trackRef = React.useRef(null);
   const single = slides.length < 2;
 
-  const go = React.useCallback((dir) => {
-    setI((prev) => (prev + dir + slides.length) % slides.length);
-  }, [slides.length]);
+  const go = React.useCallback(
+    (dir) => {
+      setI((prev) => (prev + dir + slides.length) % slides.length);
+    },
+    [slides.length],
+  );
 
   // Scroll the snap track to the active slide whenever the index changes.
   React.useEffect(() => {
@@ -90,8 +110,14 @@ function ProjectGallery({ project }) {
   React.useEffect(() => {
     if (single) return;
     const onKey = (e) => {
-      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        go(-1);
+      }
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        go(1);
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -125,11 +151,23 @@ function ProjectGallery({ project }) {
 
       {!single && (
         <React.Fragment>
-          <button className="zo-gallery-arrow zo-gallery-prev" onClick={() => go(-1)} aria-label="Previous image">
-            <svg width="16" height="16" viewBox="0 0 16 16"><path d="M10 2 L4 8 L10 14" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>
+          <button
+            className="zo-gallery-arrow zo-gallery-prev"
+            onClick={() => go(-1)}
+            aria-label="Previous image"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16">
+              <path d="M10 2 L4 8 L10 14" fill="none" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
           </button>
-          <button className="zo-gallery-arrow zo-gallery-next" onClick={() => go(1)} aria-label="Next image">
-            <svg width="16" height="16" viewBox="0 0 16 16"><path d="M6 2 L12 8 L6 14" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>
+          <button
+            className="zo-gallery-arrow zo-gallery-next"
+            onClick={() => go(1)}
+            aria-label="Next image"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16">
+              <path d="M6 2 L12 8 L6 14" fill="none" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
           </button>
           <div className="zo-gallery-dots">
             {slides.map((_, idx) => (
@@ -141,7 +179,9 @@ function ProjectGallery({ project }) {
               />
             ))}
           </div>
-          <div className="zo-gallery-count">{String(i + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</div>
+          <div className="zo-gallery-count">
+            {String(i + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+          </div>
         </React.Fragment>
       )}
     </div>
@@ -150,7 +190,9 @@ function ProjectGallery({ project }) {
 
 export function ProjectDetail({ project, onClose }) {
   React.useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
@@ -160,7 +202,9 @@ export function ProjectDetail({ project, onClose }) {
       <div className="zo-modal-inner" onClick={(e) => e.stopPropagation()}>
         <button className="zo-modal-close" onClick={onClose} aria-label="Close">
           <span>Close</span>
-          <svg width="12" height="12" viewBox="0 0 14 14"><path d="M1 1 L13 13 M13 1 L1 13" stroke="currentColor" strokeWidth="1.2" fill="none"/></svg>
+          <svg width="12" height="12" viewBox="0 0 14 14">
+            <path d="M1 1 L13 13 M13 1 L1 13" stroke="currentColor" strokeWidth="1.2" fill="none" />
+          </svg>
         </button>
         <div className="zo-modal-media">
           <ProjectGallery project={project} />
