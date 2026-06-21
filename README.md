@@ -82,12 +82,12 @@ dashboard — no code change needed.
 
 Everything this site depends on that lives **outside this repo**:
 
-| Service                              | Used for                         | Where it's configured                                        |
-| ------------------------------------ | -------------------------------- | ------------------------------------------------------------ |
-| [Vercel](https://vercel.com)         | Hosting / builds / deploys       | Vercel project settings (incl. `VITE_WEB3FORMS_KEY` env var) |
-| [Web3Forms](https://web3forms.com)   | Contact-form delivery            | Web3Forms dashboard (recipient); key in env (see above)      |
-| [123-reg](https://www.123-reg.co.uk) | Registrar for `zero-origin.co.uk` | 123-reg control panel — see below                           |
-| GitHub                               | Source + CI (`prettier --check`) | `.github/workflows/`; `main` is branch-protected             |
+| Service                              | Used for                          | Where it's configured                                        |
+| ------------------------------------ | --------------------------------- | ------------------------------------------------------------ |
+| [Vercel](https://vercel.com)         | Hosting / builds / deploys        | Vercel project settings (incl. `VITE_WEB3FORMS_KEY` env var) |
+| [Web3Forms](https://web3forms.com)   | Contact-form delivery             | Web3Forms dashboard (recipient); key in env (see above)      |
+| [123-reg](https://www.123-reg.co.uk) | Registrar for `zero-origin.co.uk` | 123-reg control panel — see below                            |
+| GitHub                               | Source + CI (`prettier --check`)  | `.github/workflows/`; `main` is branch-protected             |
 
 **DNS.** The domain is registered at 123-reg, but its DNS is served by GoDaddy's
 nameservers (`ns67` / `ns68.domaincontrol.com`). You still edit the records
