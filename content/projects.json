@@ -8,9 +8,18 @@
     "palette": "warm",
     "discipline": "Broadcast",
     "images": [
-      { "src": "/img/eurovision-song-contest-vienna/01.webp", "credit": "Alberto Morand" },
-      { "src": "/img/eurovision-song-contest-vienna/02.jpg",  "credit": "Alberto Morand" },
-      { "src": "/img/eurovision-song-contest-vienna/03.jpg", "credit": "ORG / Patrick Bauer" }
+      {
+        "src": "/img/eurovision-song-contest-vienna/01.webp",
+        "credit": "Alberto Morand"
+      },
+      {
+        "src": "/img/eurovision-song-contest-vienna/02.jpg",
+        "credit": "Alberto Morand"
+      },
+      {
+        "src": "/img/eurovision-song-contest-vienna/03.jpg",
+        "credit": "ORG / Patrick Bauer"
+      }
     ],
     "credits": [
       {
@@ -57,11 +66,26 @@
     "palette": "magenta",
     "discipline": "Broadcast",
     "images": [
-      { "src": "/img/league-of-legends-2026/01.jpg", "credit": "Riot Games / Christian Betancourt" },
-      { "src": "/img/league-of-legends-2026/02.jpg", "credit": "Riot Games / Christian Betancourt" },
-      { "src": "/img/league-of-legends-2026/03.jpg", "credit": "Riot Games / Yicun Liu" },
-      { "src": "/img/league-of-legends-2026/04.jpg", "credit": "Riot Games / Yicun Liu" },
-      { "src": "/img/league-of-legends-2026/05.jpg", "credit": "Riot Games / Yicun Liu" }
+      {
+        "src": "/img/league-of-legends-2026/01.jpg",
+        "credit": "Riot Games / Christian Betancourt"
+      },
+      {
+        "src": "/img/league-of-legends-2026/02.jpg",
+        "credit": "Riot Games / Christian Betancourt"
+      },
+      {
+        "src": "/img/league-of-legends-2026/03.jpg",
+        "credit": "Riot Games / Yicun Liu"
+      },
+      {
+        "src": "/img/league-of-legends-2026/04.jpg",
+        "credit": "Riot Games / Yicun Liu"
+      },
+      {
+        "src": "/img/league-of-legends-2026/05.jpg",
+        "credit": "Riot Games / Yicun Liu"
+      }
     ],
     "credits": [
       {
@@ -94,5 +118,63 @@
       }
     ],
     "summary": "Opening ceremony and world championship finals for Riot Games League of Legends."
+  },
+  {
+    "slug": "fta-2025",
+    "title": "Fashion Trust Arabia Awards",
+    "year": 2025,
+    "venue": "National Museum of Qatar,Doha",
+    "role": "Head of Operations",
+    "palette": "magenta",
+    "discipline": "Awards",
+    "images": [
+      {
+        "src": "/img/fta-2025/01.png",
+        "credit": "@michelesibiloni & @gianluca_luppi"
+      },
+      {
+        "src": "/img/fta-2025/02.png",
+        "credit": "@michelesibiloni & @gianluca_luppi"
+      },
+      {
+        "src": "/img/fta-2025/03.png",
+        "credit": "@michelesibiloni & @gianluca_luppi"
+      },
+      {
+        "src": "/img/fta-2025/04.png",
+        "credit": "@michelesibiloni & @gianluca_luppi"
+      },
+      {
+        "src": "/img/fta-2025/05.jpg",
+        "credit": "@michelesibiloni & @gianluca_luppi"
+      }
+    ],
+    "credits": [
+      {
+        "role": "Creative Director",
+        "name": "Fai Khadra"
+      },
+      {
+        "role": "Executive Producer",
+        "name": "Lara Lemac"
+      },
+      {
+        "role": "Senior Producers",
+        "name": "Christine Fazzino, Adrià Paituví"
+      },
+      {
+        "role": "Lead Architectural Designer",
+        "name": "Zhodi Tesfa"
+      },
+      {
+        "role": "Show Direction and Creative",
+        "name": "TEM Studio"
+      },
+      {
+        "role": "Technical Production",
+        "name": "Bild Studios"
+      }
+    ],
+    "summary": "Celebrating rising design talent across the Middle East and North Africa (MENA) region, recognising winners in seven distinct categories and honoring international industry icons."
   }
 ]
