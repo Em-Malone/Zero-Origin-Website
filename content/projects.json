@@ -49,135 +49,50 @@
     "summary": "Live broadcast of the 70th ESC, with a viewership of 131 million for the Grand Final. ROE LED, Megapixel processing, GX 3 servers with IPVFCs for ST 2110 distribution."
   },
   {
-    "slug": "halcyon-launch",
-    "title": "Halcyon — Product Launch",
-    "year": 2024,
-    "venue": "Excel, London",
-    "role": "Production Management & Media Systems",
+    "slug": "league-of-legends-2026",
+    "title": "League of Legends World Championships",
+    "year": 2025,
+    "venue": "Chengdu",
+    "role": "Content Manager / Screens Programmer",
     "palette": "magenta",
-    "discipline": "Corporate",
-    "images": [],
-    "credits": [
-      {
-        "role": "Client",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Production Manager",
-        "name": "Matt Dennett · Zero Origin"
-      },
-      {
-        "role": "Media Server",
-        "name": "Zero Origin"
-      },
-      {
-        "role": "Content Studio",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Lighting",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Audio",
-        "name": "[placeholder]"
-      }
-    ],
-    "summary": "One-shot product reveal for 1,800 guests. 24m wide curved LED wall with choreographed keynote playback and live IMAG switching."
-  },
-  {
-    "slug": "northlight-festival",
-    "title": "Northlight Festival — Main Stage",
-    "year": 2024,
-    "venue": "Reykjavík, IS",
-    "role": "Media Server Operation",
-    "palette": "cool",
-    "discipline": "Festival",
-    "images": [],
-    "credits": [
-      {
-        "role": "Festival Production",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Stage Manager",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Media Server",
-        "name": "Zero Origin"
-      },
-      {
-        "role": "Lighting Design",
-        "name": "[placeholder]"
-      }
-    ],
-    "summary": "Eleven headline acts over three nights. Shared video rig with rapid changeover, IMAG switching, and bespoke content playback per act."
-  },
-  {
-    "slug": "atlas-immersive",
-    "title": "Atlas — Immersive Installation",
-    "year": 2023,
-    "venue": "Southbank Centre, London",
-    "role": "Technical Direction",
-    "palette": "mono",
-    "discipline": "Installation",
-    "images": [],
-    "credits": [
-      {
-        "role": "Artist",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Curator",
-        "name": "[placeholder]"
-      },
-      {
-        "role": "Technical Director",
-        "name": "Matt Dennett · Zero Origin"
-      },
-      {
-        "role": "Media Server",
-        "name": "Zero Origin"
-      },
-      {
-        "role": "Fabrication",
-        "name": "[placeholder]"
-      }
-    ],
-    "summary": "Eight-week immersive installation. Four projection surfaces driven by a single media server with sensor-triggered content and auto-recovery for unattended 12-hour daily runs."
-  },
-  {
-    "slug": "pulse-broadcast",
-    "title": "Pulse — Broadcast Awards",
-    "year": 2023,
-    "venue": "Grosvenor House, London",
-    "role": "Technical Direction & Programming",
-    "palette": "warm",
     "discipline": "Broadcast",
-    "images": [],
+    "images": [
+      { "src": "/img/league-of-legends-2026/01.jpg", "credit": "Riot Games / Christian Betancourt" },
+      { "src": "/img/league-of-legends-2026/02.jpg", "credit": "Riot Games / Christian Betancourt" },
+      { "src": "/img/league-of-legends-2026/03.jpg", "credit": "Riot Games / Yicun Liu" },
+      { "src": "/img/league-of-legends-2026/04.jpg", "credit": "Riot Games / Yicun Liu" },
+      { "src": "/img/league-of-legends-2026/05.jpg", "credit": "Riot Games / Yicun Liu" }
+    ],
     "credits": [
       {
-        "role": "Broadcaster",
-        "name": "[placeholder]"
+        "role": "Screens Producer",
+        "name": "Chris Saunders · Ogle Hog"
       },
       {
-        "role": "Show Director",
-        "name": "[placeholder]"
+        "role": "Associate Screens Producer",
+        "name": "Will Loughnane"
       },
       {
-        "role": "Technical Director",
-        "name": "Matt Dennett · Zero Origin"
+        "role": "Lead Screens Programmer",
+        "name": "Rich Porter"
       },
       {
-        "role": "Media Server",
-        "name": "Zero Origin"
+        "role": "Screens Programmers",
+        "name": "Jack Nicklin-Jewell, Adam Power"
       },
       {
-        "role": "Graphics",
-        "name": "[placeholder]"
+        "role": "Content Manager / Screens Programmer",
+        "name": "Emily Malone"
+      },
+      {
+        "role": "Lead System Engineer",
+        "name": "Dan Hall · QED"
+      },
+      {
+        "role": "System Engineer",
+        "name": "Ben Shepherd · QED"
       }
     ],
-    "summary": "Live-to-tape awards broadcast. Graphics-driven show file with 40+ nominee packages, winner reveal sequences, and dynamic sponsor templates."
+    "summary": "Opening ceremony and world championship finals for Riot Games League of Legends."
   }
 ]

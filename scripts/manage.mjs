@@ -25,9 +25,10 @@
 //
 // After any change: git add -A && git commit && git push  → Vercel redeploys.
 
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { basename, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
 
 const ROOT = resolve(fileURLToPath(import.meta.url), '../..');
 const IMG_ROOT = join(ROOT, 'public', 'img');
@@ -59,14 +60,43 @@ function find(list, slug, kind) {
   return x;
 }
 
-// Copy a source file into public/img/<slug>/ with a sequential, lowercase name.
-function copyImage(slug, src, index) {
+// Compression settings — tuned for web display, not print.
+const MAX_EDGE = 2400;     // longest-edge cap in px; downscales big camera/phone originals
+const JPEG_QUALITY = 82;   // visually near-lossless for photos, large size savings
+const PNG_COMPRESSION = 9;  // max zlib effort; lossless, kept for screenshots/UI
+
+const kb = (bytes) => Math.round(bytes / 1024);
+
+// Copy a source file into public/img/<slug>/ with a sequential, lowercase name,
+// re-encoding it through sharp so it's downscaled + compressed for the web.
+// PNGs stay PNG (crisp text/UI); everything else is normalised to JPEG.
+async function copyImage(slug, src, index) {
   if (!existsSync(src)) die(`file not found: ${src}`);
   const dir = join(IMG_ROOT, slug);
   mkdirSync(dir, { recursive: true });
-  const ext = (extname(src) || '.jpg').toLowerCase();
+
+  const srcExt = extname(src).toLowerCase();
+  const isPng = srcExt === '.png';
+  const ext = isPng ? '.png' : '.jpg';
   const name = `${String(index).padStart(2, '0')}${ext}`;
-  copyFileSync(src, join(dir, name));
+  const dest = join(dir, name);
+
+  // metadata:false (the default) strips EXIF/GPS. withoutEnlargement avoids
+  // upscaling images already smaller than the cap.
+  const pipeline = sharp(src).rotate().resize({
+    width: MAX_EDGE,
+    height: MAX_EDGE,
+    fit: 'inside',
+    withoutEnlargement: true,
+  });
+  if (isPng) await pipeline.png({ compressionLevel: PNG_COMPRESSION }).toFile(dest);
+  else await pipeline.jpeg({ quality: JPEG_QUALITY, mozjpeg: true }).toFile(dest);
+
+  const before = statSync(src).size;
+  const after = statSync(dest).size;
+  const saved = before > 0 ? Math.round((1 - after / before) * 100) : 0;
+  console.log(`    compressed ${kb(before)}KB → ${kb(after)}KB (−${saved}%)`);
+
   return `/img/${slug}/${name}`;
 }
 
@@ -124,7 +154,7 @@ const project = {
     write(PROJECTS, data);
     ok(`updated ${pos[0]}`);
   },
-  images({ pos }) {
+  async images({ pos }) {
     const [slug, ...files] = pos;
     if (!slug || !files.length) die('usage: npm run project images <slug> <file...>');
     const data = read(PROJECTS);
@@ -134,8 +164,9 @@ const project = {
     const dir = join(IMG_ROOT, slug);
     let n = existsSync(dir) ? readdirSync(dir).length : 0;
     for (const src of files) {
-      const webPath = copyImage(slug, src, ++n);
-      p.images.push(webPath);
+      const webPath = await copyImage(slug, src, ++n);
+      // Each row is { src, credit }; credit is left blank to fill in by hand.
+      p.images.push({ src: webPath, credit: '' });
       ok(`${basename(src)} → ${webPath}`);
     }
     write(PROJECTS, data);
@@ -150,9 +181,11 @@ const project = {
     const imgs = p.images || [];
     if (idx < 0 || idx >= imgs.length) die(`index out of range (0..${imgs.length - 1})`);
     const [removed] = imgs.splice(idx, 1);
-    rmDiskPath(removed);
+    // Entries may be a bare path (legacy) or { src, credit }.
+    const removedPath = typeof removed === 'string' ? removed : removed.src;
+    rmDiskPath(removedPath);
     write(PROJECTS, data);
-    ok(`removed ${removed}`);
+    ok(`removed ${removedPath}`);
   },
   remove({ pos }) {
     if (!pos[0]) die('usage: npm run project remove <slug>');
@@ -205,7 +238,7 @@ const product = {
     write(PRODUCTS, data);
     ok(`updated ${pos[0]}`);
   },
-  image({ pos }) {
+  async image({ pos }) {
     const [slug, file] = pos;
     if (!slug || !file) die('usage: npm run product image <slug> <file>');
     const data = read(PRODUCTS);
@@ -213,7 +246,7 @@ const product = {
     // One screenshot per product: clear any previous folder, then copy fresh.
     if (p.image) rmDiskPath(p.image);
     rmImgDir(slug);
-    p.image = copyImage(slug, file, 1);
+    p.image = await copyImage(slug, file, 1);
     write(PRODUCTS, data);
     ok(`${basename(file)} → ${p.image}`);
   },
@@ -249,4 +282,4 @@ if (!cmd || !table[cmd]) {
   console.log(`Run a command with no further args for its usage, e.g. npm run ${kind} add`);
   process.exit(cmd ? 1 : 0);
 }
-table[cmd](parse(rest));
+await table[cmd](parse(rest));
