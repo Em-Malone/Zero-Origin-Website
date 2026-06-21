@@ -25,8 +25,9 @@ export function ContactPage() {
       name: f.name.value,
       email: f.email.value,
       message: f.message.value,
-      // Honeypot: bots fill this hidden field; real users never see it.
-      botcheck: f.botcheck.value,
+      // Honeypot: bots tick this hidden checkbox; real users never see it.
+      // Web3Forms expects a boolean — false for humans.
+      botcheck: f.botcheck.checked,
     };
 
     try {
@@ -87,12 +88,7 @@ export function ContactPage() {
           </div>
           <label className="zo-field">
             <span className="zo-field-tag">Message</span>
-            <textarea
-              name="message"
-              rows="5"
-              required
-              placeholder="Big idea, tight schedule, a wall of pixels? Go on…"
-            ></textarea>
+            <textarea name="message" rows="5" required placeholder="How can we help?"></textarea>
           </label>
 
           {/* Honeypot field — hidden from users, catches bots. */}
