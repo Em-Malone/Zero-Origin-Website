@@ -88,12 +88,7 @@ export function ContactPage() {
           </div>
           <label className="zo-field">
             <span className="zo-field-tag">Message</span>
-            <textarea
-              name="message"
-              rows="5"
-              required
-              placeholder="How can we help?"
-            ></textarea>
+            <textarea name="message" rows="5" required placeholder="How can we help?"></textarea>
           </label>
 
           {/* Honeypot field — hidden from users, catches bots. */}
